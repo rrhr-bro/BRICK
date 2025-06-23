@@ -1,0 +1,381 @@
+body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    font-family: "Montserrat", sans-serif;
+    -webkit-text-size-adjust: 100%;
+    font-size: medium;
+    background-color: rgb(250, 237, 206);
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    background-color: rgba(38, 68, 28, 0.87);
+    color:rgb(255, 255, 255);
+    height: 70px;
+    padding: 2px 8%;
+}
+.fixed-top{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#logo{
+    align-self: center;
+    font-family: "Rammetto One", sans-serif;
+    width: 100%;
+    font-size:xx-large;
+    padding-left: 4%;
+}
+
+.menu{
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.menusm{
+    align-self: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content:stretch;
+    flex-grow: 1;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content:stretch;
+    color: white;
+    align-self: center;
+}
+
+.h-slaider{
+    width: 100vw;
+    height: 100vh;
+    position: flex;
+    display: flex;
+    top: 0;
+    left: 0;
+    z-index: -7;
+    justify-content:center;
+}
+
+.visible{
+    opacity: 1;
+}
+
+.sl1{
+    background: linear-gradient(rgba(71, 52, 53, 0.5), transparent), url('/images/home.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    color: white;
+    align-self: center;
+    text-align: center;
+}
+
+.but{
+    background-color: #d6b87c;
+    font-family: "Montserrat", sans-serif;
+    padding: 10px 20px;
+    color: #161515;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+#welcomeBtn:active{
+    background-color: rgb(97, 66, 3)
+}
+
+#submitBtn:active{
+    background-color: #611513;
+}
+
+/*модальное окно*/
+.modal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease;
+
+}
+
+.modal-opened{
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon-close{
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+    cursor: pointer;
+}
+
+#close{
+    height: 50px;
+    width: 50px;
+}
+
+.modal-wrapper{
+    background: linear-gradient(to top, rgba(38, 68, 28, 0.658) 1%, transparent 150%), rgb(129, 155, 119);
+    color: white;
+    border-radius: 20px;
+}
+
+#ylogin, #password{
+    width: 60%;
+}
+
+.ylogin, .password{
+    text-align: center;
+    margin: 5%;
+}
+
+input{
+    margin-top: 5px;
+    width: 200px;
+    min-height: 21px;
+    padding: 5px;
+    font-family: "Montserrat", sans-serif;
+    border:#002136;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+#wronglp{
+    color: rgb(85, 17, 17);
+    text-align: center;
+    margin: 5%;
+}
+
+
+#submitBtn{
+    width: 100%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #7a1a17;
+    color: white
+}
+
+/*footer*/
+footer{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    color: white;
+    background-color: rgb(129, 155, 119);
+    padding: 20px 5%;
+    min-height: 200px;
+}
+
+/* объявления */
+.listings{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: flex-start;
+    padding: 20px 100px;
+}
+
+.listing{
+    margin: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    box-shadow: 0 2px 12px  rgba(173, 129, 153, 0.185);
+    border-radius: 10px;
+    border-color: #2b0000;
+    width: 240px;
+    height: 290px;
+    background-color: rgb(255, 255, 255);
+    color: #140101;
+    font-size: large;
+    cursor: pointer;
+}
+
+
+.user{
+    display: none;
+}
+
+.city{
+    margin-top: -30px;
+    font-size: large;
+}
+
+.price{
+    font-size:x-large;
+    align-items: center;
+}
+
+.description{
+    font-size: medium;
+    text-align: justify;
+}
+
+.title, .type{
+    font-size: larger;
+}
+.type, .publishedAt{
+    color: #cecece;
+}
+
+#lid, #lstatus{
+    color: #ffffff00;
+}
+
+.publishedAt{
+    text-align: right;
+}
+
+.modalUD{
+    background: linear-gradient(to top, rgba(38, 68, 28, 0.397) 1%, transparent 150%), rgb(129, 155, 119);
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    position:absolute;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 300px;
+    height: fit-content;
+    width: 980px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s ease;
+}
+
+.modal-opened{
+    visibility: visible;
+    opacity: 1;
+}
+
+#icon-close{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: stretch;
+    width: 100%;
+}
+
+#closeUD{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.crudForm{
+    display: flex;
+    justify-content: stretch;
+    flex-direction: row;
+    height: 100%;
+    width: 920px;
+    margin-bottom: 60px;
+}
+
+.polesOnly{
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    height: 100%;
+    width: 660px;
+}
+
+.agent{
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    align-items: start;
+    height: 100%;
+    width: 220px;
+    margin-left: 40px;
+}
+
+.poles{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.descpoles{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 640px;
+}
+
+#idPoleUD{
+    width: 20px;
+}
+
+#titlePoleUD{
+    width: 140px;
+}
+
+.pole{
+    margin: 0 10px;
+    margin-bottom: 10px;
+}
+
+input, textarea{
+    margin-top: 5px;
+    width: 190px;
+    min-height: 21px;
+    padding: 5px;
+    font-family: "Montserrat", sans-serif;
+    border:#002136;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+textarea{ 
+    margin-top: 20px;
+    resize: none;
+    width: 640px;
+}
+
+.UD{
+    flex-wrap: wrap;
+}

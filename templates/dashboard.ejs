@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BRICK</title>
+    <link rel="stylesheet" href="/css/styleDashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Rammetto+One&display=swap" rel="stylesheet">
+<body>
+    <div class="header fixed-top">
+        <div id="logo">
+            BRICK
+        </div>
+        <div class="menu">
+            <div class="menusm"><%= users.firstName %> <%= users.lastName %></div>
+            <div class="menusm">
+            <form action="/logout" method="GET"><input id="outBtn" class="but" type="submit" value="Выйти"></form>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="h-slaider sl1 visible">
+            <div class="main">
+                <div class="name">Мои объявления</div><div class="filterwd"><input id="filter1Btn" class="but unactive-filter <%= isFiltered ? 'active-filter' : '' %>" type="button" value="фильтр"></div>
+                <div class="listings">
+                    <% let sumL = 0 %>
+                    <% let medPriceL = 0 %>
+                    <% let modaCityL = [] %>
+                    <% let frequency = {}; %>
+                    <% if (listings.length === 0) { %>
+                        <p>У вас пока нет объявлений. </p>
+                    <% } else { %>
+                        <% listings.forEach(listing => { %>
+                            <% sumL +=1 %>
+                            <div class="listing <%= listing.status !== 'active' ? 'inactive' : '' %> ">
+                                <div class="row">
+                                    <span class="title"><%= listing.title %></span>
+                                    <span class="type">(<span id="type"><%= listing.type %></span>)</span>
+                                </div>
+                                <div class="row">- <span class="city"><%= listing.city %><% modaCityL.push(listing.city) %></span></div>
+                                <div class="row price"><span id="price"><%= listing.price %><% medPriceL+= Number(listing.price) %></span> ₽</div>
+                                <div class="row description"><%= listing.description %></div>
+                                <div class="row publishedAt"><span id="lstatus"><%= listing.status %></span><span id="lid"><%= listing.id %></span><span id="publishedAt"><%= listing.publishedAt %></span></div>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                    <div class="listing-create">
+                        <div><img id="create-img" src="/images/brick2.jpg"></div>
+                        <input id="create1Btn" class="but" type="button" value="Добавить">
+                    </div>
+                </div>
+                <% modaCityL.forEach(city => { %>
+                    <% frequency[city] = (frequency[city] || 0) + 1; %>
+                <% }); %>
+                <% const maxCount = Math.max(...Object.values(frequency)); %>
+                <% const mostPopularCity = Object.keys(frequency).find(city => frequency[city] === maxCount); %>
+                <div class="analiz">
+                    <p id="analizName">Моя аналитика:</p>
+                    <p>Количество объявлений - <span class="anp"><%= sumL %></span></p>
+                    <p>Средняя стоимость - <span class="anp"><%= Math.trunc(medPriceL / sumL) %></span></p>
+                    <p>Самый популярный город - <span class="anp"><%= mostPopularCity %></span></p>
+                </div>
+            </div>
+            <!-- модальное окно для создания -->
+            <div class="modal" id="modalCreate">
+            <div class="icon-close">
+                <div><img id="closeC" src="/images/close.png" alt=""></div>
+            </div>
+            <form id="createForm" action="/user/create" method="POST">
+                <div class="crudForm">
+                    <div class="poles">
+                        <div class="pole">
+                            <label for="titlePole">Название:</label><br>
+                                <select name="titlePole" id="titlePoleC">
+                                        <option value="квартира">квартира</option>
+                                        <option value="офис">офис</option>
+                                        <option value="дом">дом</option>
+                                        <option value="земля">земля</option>
+                                </select>
+                        </div>
+                        <div class="pole">
+                            <label for="typePole">Тип:</label><br>
+                                <select name="typePole" id="typePoleC">
+                                    <option value="продажа">продажа</option>
+                                    <option value="аренда">аренда</option>
+                                </select>
+                        </div>
+                        <div class="pole">
+                            <label for="cityPole">Город:</label><br>
+                                <input name="cityPole" class="cityPoles" id="cityPoleC" type="text">
+                        </div>
+                        <div class="pole">
+                            <label for="pricePole">Цена:</label><br>
+                                <input name="pricePole" class="pricePoles" id="pricePoleC" type="number" min="1">
+                        </div>
+                    </div>
+                    <div class="descpoles pole">
+                        <textarea name="descPole" id="descPoleC" placeholder="Описание"></textarea>
+                    </div>
+                    <div class="createBtnWd">
+                        <input id="create2Btn" class="but" type="submit" value="Создать" disabled>
+                    </div>
+                </div>
+            </form>
+        </div>
+            <!-- модальное окно для фильтрации -->
+            <div class="modal" id="modalFilter">
+                <div class="icon-close">
+                    <div><img id="closeF" src="/images/close.png" alt=""></div>
+                </div>
+                <form id="filterForm" action="/user/filter" method="POST">
+                    <div class="crudForm">
+                        <div class="poles">
+                            <div class="pole">
+                                <label for="titlePole">Название:</label><br>
+                                    <select name="titlePole" id="titlePoleF">
+                                        <option value="">Любое</option>
+                                        <% let seenl = new Set(); %>
+                                        <% if (listings.length !== 0) { %>
+                                            <% listings.forEach(listing => { %>
+                                                <% if (!seenl.has(listing.title)) { %>
+                                                    <% seenl.add(listing.title); %> 
+                                                    <option value="<%= listing.title %>" 
+                                                        <%= selectedFilters.title === listing.title ? 'selected' : '' %> >
+                                                        <%= listing.title %>
+                                                    </option>
+                                                <% } %>
+                                            <% }) %>
+                                        <% } %>
+                                    </select>
+                            </div>
+                            <div class="pole">
+                                <label for="typePole">Тип:</label><br>
+                                    <select name="typePole" id="typePoleF">
+                                        <option value="">Любой</option>
+                                        <% if (listings.length !== 0) { %>
+                                            <% listings.forEach(listing => { %>
+                                                <% if (!seenl.has(listing.type)) { %>
+                                                    <% seenl.add(listing.type); %> 
+                                                    <option value="<%= listing.type %>" 
+                                                        <%= selectedFilters.type === listing.type ? 'selected' : '' %> >
+                                                        <%= listing.type %>
+                                                    </option>
+                                                <% } %>
+                                            <% }) %>
+                                        <% } %>
+                                    </select>
+                            </div>
+                            <div class="pole">
+                                <label for="cityPole">Город:</label><br>
+                                    <select name="cityPole" id="cityPoleF">
+                                        <option value="">Любой</option>
+                                        <% if (listings.length !== 0) { %>
+                                            <% listings.forEach(listing => { %>
+                                                <% if (!seenl.has(listing.city)) { %>
+                                                    <% seenl.add(listing.city); %> 
+                                                    <option value="<%= listing.city %>" 
+                                                        <%= selectedFilters.city === listing.city ? 'selected' : '' %> >
+                                                        <%= listing.city %>
+                                                    </option>
+                                                <% } %>
+                                            <% }) %>
+                                        <% } %>
+                                    </select>
+                            </div>
+                            <div class="pole">
+                                <label for="statusPole">Статус:</label><br>
+                                    <select name="statusPole" id="statusPoleF">
+                                        <option value="">Любой</option>
+                                        <% if (listings.length !== 0) { %>
+                                            <% listings.forEach(listing => { %>
+                                                <% if (!seenl.has(listing.status)) { %>
+                                                    <% seenl.add(listing.status); %> 
+                                                    <option value="<%= listing.status %>" 
+                                                        <%= selectedFilters.status === listing.status ? 'selected' : '' %> >
+                                                        <%= listing.status %>
+                                                    </option>
+                                                <% } %>
+                                            <% }) %>
+                                        <% } %>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="crudBtns">
+                            <input id="filter2Btn" class="but" type="submit" value="Фильтровать">
+                            <input id="filterCancelBtn" class="but" type="button" value="Сбросить">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- модальное окно для редактирования и удаления объявления -->
+            <div class="modal" id="modalUD">
+                <div class="icon-close">
+                    <div><img id="closeUD" src="/images/close.png" alt=""></div>
+                </div>
+                <form id="upDelForm" action="/user/action" method="POST">
+                    <div class="crudForm">
+                        <div class="poles UD">
+                        <div class="pole">
+                            <label for="idPole">Id:</label><br>
+                                <input name="idPole" id="idPoleUD" readonly>
+                        </div>
+                        <div class="pole">
+                            <label for="titlePole">Название:</label><br>
+                                <select name="titlePole" id="titlePoleUD">
+                                        <option value="квартира">квартира</option>
+                                        <option value="офис">офис</option>
+                                        <option value="дом">дом</option>
+                                        <option value="земля">земля</option>
+                                </select>
+                        </div>
+                        <div class="pole">
+                            <label for="typePole">Тип:</label><br>
+                                <select name="typePole" id="typePoleUD">
+                                    <option value="продажа">продажа</option>
+                                    <option value="аренда">аренда</option>
+                                </select>
+                        </div>
+                        <div class="pole">
+                            <label for="cityPole">Город:</label><br>
+                                <input name="cityPole" class="cityPoles" id="cityPoleUD" type="text">
+                        </div>
+                        <div class="pole">
+                            <label for="pricePole">Цена:</label><br>
+                                <input name="pricePole" class="pricePoles" id="pricePoleUD" type="number" min="1">
+                        </div>
+                        <div class="pole">
+                            <label for="statusPole">Статус:</label><br>
+                                <select name="statusPole" id="statusPoleUD">
+                                    <option value="active">active</option>
+                                    <option value="inactive">inactive</option>
+                                </select>
+                        </div>
+                        <div class="pole">
+                            <label for="publishedAtPole">Дата публикации:</label><br>
+                                <input name="publishedAtPole" id="publishedAtPoleUD" readonly>
+                        </div>
+                        <div class="pole">
+                            <label for="emailPole">Email:</label><br>
+                                <input name="emailPole" id="emailPoleUD" readonly value="<%= userEmail %>">
+                        </div>
+                    </div>
+                    <div class="descpoles pole">
+                        <textarea name="descPole" id="descPoleUD" placeholder="Описание"></textarea>
+                    </div>
+                        <div class="crudBtns">
+                            <input id="updateBtn" name="action" class="but" type="submit" value="Обновить" disabled>
+                            <input id="deleteBtn" name="action" class="but" type="submit" value="Удалить" disabled>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer class="">
+            <div>Агентство недвижимости «BRICK» — ваш надёжный фундамент в мире жилья. Мы помогаем строить крепкие отношения между клиентом и идеальным домом, предлагая только проверенные объекты и профессиональный сервис. Как кирпич — символ прочности и стабильности, «Брик» гарантирует безопасность и уверенность на каждом этапе сделки. Ваш дом начинается здесь!</div>
+        </footer>
+    </div>
+    <script src="/js/scriptDashboard.js"></script>
+</body>
+</html>

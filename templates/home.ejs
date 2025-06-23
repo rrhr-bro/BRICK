@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BRICK</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Rammetto+One&display=swap" rel="stylesheet">
+<body>
+    <div class="header fixed-top">
+        <div id="logo">
+            BRICK
+        </div>
+        <div class="menu">
+            <div class="menusm">Каталог</div>
+            <div class="menusm">
+            <input id="welcomeBtn" class="but" type="submit" value="Войти">
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="main">
+            <div class="h-slaider sl1 visible">
+                <div class="welcome">
+                    <h1>Ваш дом начинается здесь!</h1>
+                    <h3>Агенство недвижимости BRICK.</h3>
+                </div>
+            </div>
+            <div class="listings">
+                <% if (listings.length === 0) { %>
+                    <p>Пока нет объявлений. </p>
+                <% } else { %>
+                    <% listings.forEach(listing => { %>
+                        <div class="listing">
+                            <div class="row">
+                                <span class="title"><%= listing.title %></span>
+                                <span class="type">(<span id="type"><%= listing.type %></span>)</span>
+                            </div>
+                            <div class="row">- <span class="city"><%= listing.city %></span></div>
+                            <div class="row price"><span id="price"><%= listing.price %></span> ₽</div>
+                            <div class="row description"><%= listing.description %></div>
+                            <div class="row publishedAt"><span id="lstatus"><%= listing.status %></span><span id="lid"><%= listing.id %></span><span id="publishedAt"><%= listing.publishedAt %></span></div>
+                            <div class="user"><div class="firstName"><%= listing.User.firstName %></div><div class="lastName"><%= listing.User.lastName %></div><div class="email"><%= listing.userEmail %></div></div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+            <!-- модальное окно просмотра -->
+                <div class="modalUD">
+                    <div id="icon-close">
+                        <div><img id="closeUD" src="/images/close.png" alt=""></div>
+                    </div>
+                        <div class="crudForm">
+                            <div class="polesOnly">
+                                <div class="poles UD">
+                                    <div class="pole">
+                                        <label for="idPole">Id:</label><br>
+                                            <input name="idPole" id="idPoleUD" readonly>
+                                    </div>
+                                    <div class="pole">
+                                        <label for="titlePole">Название:</label><br>
+                                            <input name="titlePole" id="titlePoleUD" readonly>
+                                    </div>
+                                    <div class="pole">
+                                        <label for="typePole">Тип:</label><br>
+                                            <input name="typePole" id="typePoleUD" readonly>
+                                    </div>
+                                    <div class="pole">
+                                        <label for="cityPole">Город:</label><br>
+                                            <input name="cityPole" class="cityPoles" id="cityPoleUD" type="text" readonly>
+                                    </div>
+                                    <div class="pole">
+                                        <label for="pricePole">Цена:</label><br>
+                                            <input name="pricePole" class="pricePoles" id="pricePoleUD" type="number" min="1" readonly>
+                                    </div>
+                                    <div class="pole">
+                                        <label for="statusPole">Статус:</label><br>
+                                            <input name="statusPole" id="statusPoleUD" readonly>
+                                    </div>
+                                    <div class="pole">
+                                        <label for="publishedAtPole">Дата публикации:</label><br>
+                                            <input name="publishedAtPole" id="publishedAtPoleUD" readonly>
+                                    </div>
+                                </div>
+                                <div class="descpoles pole">
+                                    <textarea name="descPole" id="descPoleUD" placeholder="Описание" readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="agent">
+                                <div class="pole">
+                                    <label for="firstNamePole">Агент:</label><br>
+                                        <input name="firstNamePole" id="firstNamePole" readonly>
+                                </div>
+                                <div class="pole">
+                                    <input name="lastNamePole" id="lastNamePole" readonly>
+                                </div>
+                                <div class="pole">
+                                    <label for="emailPole">Контакты:</label><br>
+                                        <input name="emailPole" id="emailPoleUD" readonly>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            <!-- модальное окно авторизации -->
+                <div class="modal
+                <% if (typeof errorMessage !== 'undefined') { %>
+                    <%= 'modal-opened' %>
+                <% } %> ">
+                <div class="icon-close">
+                    <img id="close" src="/images/close.png" alt="">
+                </div>
+                <div class="modal-wrapper">
+                    <form action="/login" method="POST">
+                        <div class="ylogin">
+                            <label for="ylogin">Login:</label><br>
+                            <input type="text" name="login" placeholder="email" id="ylogin">
+                        </div>
+                        <div class="password">
+                            <label for="password">Пароль:</label><br>
+                            <input type="password" name="password" id="password">
+                        </div>
+                        <div id="wronglp">
+                            <% if (typeof errorMessage !== 'undefined') { %>
+                                <%= errorMessage %>
+                            <% } %>
+                        </div>
+                        <div><input id="submitBtn" class="but" type="submit" value="Войти"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="">
+            <div>Агентство недвижимости «BRICK» — ваш надёжный фундамент в мире жилья. Мы помогаем строить крепкие отношения между клиентом и идеальным домом, предлагая только проверенные объекты и профессиональный сервис. Как кирпич — символ прочности и стабильности, «Брик» гарантирует безопасность и уверенность на каждом этапе сделки. Ваш дом начинается здесь!</div>
+        </footer>
+    </div>
+    <script src="/js/scriptHome.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    font-family: "Montserrat", sans-serif;
+    -webkit-text-size-adjust: 100%;
+    font-size: medium;
+    background-color: rgb(250, 237, 206);
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    background-color: rgba(38, 68, 28, 0.747);
+    color:rgb(255, 255, 255);
+    height: 70px;
+    padding: 2px 8%;
+}
+.fixed-top{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#logo{
+    align-self: center;
+    font-family: "Rammetto One", sans-serif;
+    width: 100%;
+    font-size:xx-large;
+    padding-left: 4%;
+}
+
+.menu{
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.menusm{
+    align-self: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content:stretch;
+    flex-grow: 1;
+}
+
+.h-slaider{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    justify-content:center;
+}
+
+.visible{
+    opacity: 1;
+}
+
+.sl1{
+    background: linear-gradient(rgba(71, 52, 53, 0.5), transparent), url('/images/home.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.main{
+    padding: 0 5%;
+    margin-top: 74px;
+    margin-bottom: 30px;
+    width: 72%;
+    min-height: 100vh;
+    height:max-content;
+    background: linear-gradient(to top left, rgba(255, 144, 200, 0.185) 1%, transparent 150%), rgb(235, 229, 197);
+    display:flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items:center;
+    border-radius: 20px;
+}
+
+.name{
+    margin-top: 20px;
+    font-size: larger;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+.listings{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.listing, .listing-create{
+    margin: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    box-shadow: 0 2px 12px  rgba(173, 129, 153, 0.185);
+    border-radius: 10px;
+    border-color: #2b0000;
+    width: 240px;
+    height: 290px;
+    background-color: rgb(255, 255, 255);
+    color: #140101;
+    font-size: large;
+    cursor: pointer;
+}
+
+.inactive{
+    color: #00000054;
+    background-color: #ffffff88;
+}
+
+.city{
+    margin-top: -30px;
+    font-size: large;
+}
+
+.price{
+    font-size:x-large;
+    align-items: center;
+}
+
+.description{
+    font-size: medium;
+    text-align: justify;
+}
+
+.title, .type{
+    font-size: larger;
+}
+.type, .publishedAt{
+    color: #cecece;
+}
+
+#lid, #lstatus{
+    color: #ffffff00;
+}
+
+.publishedAt{
+    text-align: right;
+}
+
+#create-img{
+    height: 240px;
+    width: 240px;
+}
+
+/*модальное окно*/
+.modal{
+    background: linear-gradient(to top, rgba(38, 68, 28, 0.151) 1%, transparent 150%), rgb(129, 155, 119);
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 300px;
+    height: fit-content;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s ease;
+}
+
+.modal-opened{
+    visibility: visible;
+    opacity: 1;
+}
+
+.icon-close{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: stretch;
+    width: 100%;
+}
+
+#closeF, #closeC, #closeUD{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.crudForm{
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.poles{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin: 20px;
+}
+
+.descpoles{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.pole{
+    margin: 0 10px;
+    margin-bottom: 10px;
+}
+
+select, input, textarea{
+    margin-top: 5px;
+    width: 200px;
+    min-height: 21px;
+    padding: 5px;
+    font-family: "Montserrat", sans-serif;
+    border:#002136;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+input{
+    width: 190px;
+}
+
+textarea{ 
+    resize: none;
+    width: 882px;
+}
+
+#descPoleC{
+    width: 853px;
+}
+
+.UD{
+    flex-wrap: wrap;
+}
+
+/* кнопки */
+.crudBtns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+}
+
+#filter2Btn{
+    margin-right: 10px;
+}
+
+#submitBtn{
+    width: 100%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.but{
+    background-color: #7a1a17;
+    font-family: "Montserrat", sans-serif;
+    padding: 10px 20px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.but:active{
+    background-color: #5f1613;
+}
+
+#filter1Btn:active{
+    background-color: rgba(153, 0, 26, 0.048);
+}
+
+.filterwd{
+    width: 100%;
+    margin-top: -22px;
+    margin-right: 63px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#filter1Btn{
+    background-color: #ce1b1b00;
+    padding: 0;
+    font-size: large;
+    text-align: right;
+}
+
+.unactive-filter{
+    color:#727c6f;
+}
+
+.active-filter{
+    color: #7a1a17;
+    font-weight: bold;
+}
+
+#create1Btn{
+    margin-top: 10px;
+    width: 100%;
+}
+
+#create2Btn{
+    margin: 40px;
+}
+
+.createBtnWd{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#updateBtn, #deleteBtn{
+    margin: 40px 10px;
+}
+
+/* аналитика */
+.analiz{
+    margin: 20px;
+    padding: 20px;
+    font-size: medium;
+    color: rgb(36, 3, 3);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+#analizName{
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+.anp{
+    font-weight: bold;
+}
+
+/*footer*/
+footer{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    color: white;
+    background-color: rgb(129, 155, 119);
+    padding: 20px 5%;
+    min-height: 200px;
+}

@@ -20,6 +20,31 @@ ____
 - Sequelize ORM  
 - PostgreSQL  
 - CSS, JavaScript
+_____
+
+## Структура проекта
+
+- `/controllers` — логика обработки запросов  
+- `/database` — модели и конфигурация базы данных  
+- `/routes` — маршруты приложения  
+- `/templates` — EJS-шаблоны  
+- `/public` — статические файлы (CSS, JS, изображения)  
+- `index.js` — точка входа приложения  
+- `package.json` — описаниt зависимостей и скриптов проекта
+____
+
+## Установка
+1. Клонируйте репозиторий:
+```
+git clone https://github.com/rrhr-bro/BRICK.git
+cd BRICK
+```
+2. Установите зависимости:
+```
+npm install
+```
+
+3. Настройте базу данных PostgreSQL
 
 ____
 

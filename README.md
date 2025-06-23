@@ -45,6 +45,18 @@ npm install
 ```
 
 3. Настройте базу данных PostgreSQL
+- Поменяйте настройки на свои в /database/connection.js:
+```
+const sequelize = new Sequelize(
+    'nedvijjimost', //db name
+    'postgres', //user
+    '1111', //password
+    {
+        host: 'localhost',
+        dialect: 'postgres',
+    }
+);
+```
 
 ____
 
